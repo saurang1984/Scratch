@@ -1,2 +1,2 @@
 # Scratch
-Repository for training purpose
+Repository for training purpose only.
