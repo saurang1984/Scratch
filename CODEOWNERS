@@ -1,0 +1,11 @@
+# This assigns all files in the repository to @octocat
+* @saurang1984
+
+# This assigns all files in the `/docs` directory to @docs-team
+/docs/ @docs-team
+
+# This assigns all JavaScript files to @frontend-team
+*.js @frontend-team
+
+# This assigns a specific file to multiple users
+/path/to/specific-file @user1 @user2
