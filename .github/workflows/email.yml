@@ -16,8 +16,8 @@ jobs:
       with:
         server_address: smtp.mail.yahoo.com
         server_port: 465
-        username: ${{ secrets.SMTP_USERNAME }}
-        password: ${{ secrets.SMTP_PASSWORD }}
+        username: s4saurang@yahoo.co.in
+        password: Password#2019
         subject: 'Push to Master Branch'
         body: 'A push was made to the master branch.'
         to: 'saurang1984@gmail.com'
