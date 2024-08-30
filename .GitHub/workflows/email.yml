@@ -1,0 +1,23 @@
+name: Notify on Push to Master
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Send email notification
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: ${{ secrets.SMTP_USERNAME }}
+        password: ${{ secrets.SMTP_PASSWORD }}
+        subject: 'Push to Master Branch'
+        body: 'A push was made to the master branch.'
+        to: 'saurang1984@gmail.com'
+        from: 's4saurang@gmail.com'
