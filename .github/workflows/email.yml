@@ -3,7 +3,8 @@ name: Notify on Push to Master
 on:
   push:
     branches:
-      - master
+      - main
+  workflow_dispatch:
 
 jobs:
   notify:
