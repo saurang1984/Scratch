@@ -1,24 +1,35 @@
-name: Notify on Push to Master
+name: Send Email on Push to Master
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
-  notify:
+  send_email:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Send email notification
-      uses: dawidd6/action-send-mail@v3
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Send email using GitHub API
+      uses: actions/github-script@v7.0.1
       with:
-        server_address: smtp.mail.yahoo.com
-        server_port: 465
-        username: s4saurang@yahoo.co.in
-        password: Password#2019
-        subject: 'Push to Master Branch'
-        body: 'A push was made to the master branch.'
-        to: 'saurang1984@gmail.com'
-        from: 's4saurang@yahoo.co.in'
+        script: |
+          const email = 'saurang1984@gmail.com';
+          const subject = 'Code Pushed to Main Branch';
+          const body = `Code has been pushed to the Masin branch by ${context.actor}.`;
+
+          const result = await github.request('POST /repos/{owner}/{repo}/dispatches', {
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            event_type: 'send-email',
+            client_payload: {
+              email: email,
+              subject: subject,
+              body: body
+            }
+          });
+
+          console.log(result);
