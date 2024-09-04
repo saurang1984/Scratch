@@ -11,15 +11,15 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v2
 
     - name: Send email using GitHub API
-      uses: actions/github-script@v7.0.1
+      uses: actions/github-script@v7
       with:
         script: |
           const email = 'saurang1984@gmail.com';
-          const subject = 'Code Pushed to Main Branch';
-          const body = `Code has been pushed to the Masin branch by ${context.actor}.`;
+          const subject = 'Code Pushed to Master Branch';
+          const body = `Code has been pushed to the master branch by ${context.actor}.`;
 
           const result = await github.request('POST /repos/{owner}/{repo}/dispatches', {
             owner: context.repo.owner,
@@ -29,7 +29,12 @@ jobs:
               email: email,
               subject: subject,
               body: body
+            },
+            headers: {
+              authorization: `token ${process.env.EMAIL_PAT}`
             }
           });
 
           console.log(result);
+    env:
+      PAT: ${{ secrets.EMAIL_PAT }}
