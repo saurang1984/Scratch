@@ -13,9 +13,9 @@ async function main() {
       to: [{ address: recipientAddress }],
     },
     content: {
-      subject: "Test email from JS Sample",
+      subject: "Push event to Scratch repo",
       plainText: "This is plaintext body of test email.",
-      html: "<html><h1>This is the html body of test email.</h1></html>",
+      html: "<html><h1>New source code available in Scratch repo - main branch</h1></html>",
     },
   }
 
