@@ -1,13 +1,6 @@
 name: Dynamic Environment Variables
 
-on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Deployment environment'
-        required: true
-        default: 'DEV'
-
+on: [push]
 
 jobs:
   build:
@@ -18,9 +11,13 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set dynamic environment variable
+      id: set-secret
       run: |
-          SECRET_NAME="${{ inputs.environment }}_secret"
-          echo "ORG_SECRET=$SECRET_NAME" >> $GITHUB_ENV
+        case ${{ inputs.environment }} in
+          PROD) echo "ORG_SECRET=${{ secrets.PROD_secret }}" >> $GITHUB_ENV ;;
+          DEV) echo "ORG_SECRET=${{ secrets.DEV_secret }}" >> $GITHUB_ENV ;;
+          TEST) echo "ORG_SECRET=${{ secrets.TEST_secret }}" >> $GITHUB_ENV ;;
+        esac
 
     - name: Use dynamic environment variable
       run: echo "The secret is $ORG_SECRET"
