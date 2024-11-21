@@ -27,3 +27,15 @@ jobs:
 
     - name: Use dynamic environment variable
       run: echo "The secret is $ORG_SECRET"
+
+    - name: Compare secret
+      id: compare-secret
+      run: |
+        if [ "$ORG_SECRET" = "Dev" ]; then
+          echo "MATCH=true" >> $GITHUB_ENV
+        else
+          echo "MATCH=false" >> $GITHUB_ENV
+        fi
+
+    - name: Output comparison result
+      run: echo "Secret match result: $MATCH"
