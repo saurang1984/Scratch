@@ -1,0 +1,24 @@
+name: Dynamic Environment Variables
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'DEV'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set dynamic environment variable
+      run: echo "ORG_SECRET=${{ secrets[inputs.environment + '_secret'] }}" >> $GITHUB_ENV
+
+    - name: Use dynamic environment variable
+      run: echo "The secret is $ORG_SECRET"
