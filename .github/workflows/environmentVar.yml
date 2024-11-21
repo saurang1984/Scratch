@@ -20,7 +20,7 @@ jobs:
     - name: Set dynamic environment variable
       run: |
           SECRET_NAME="${{ inputs.environment }}_secret"
-          echo "ORG_SECRET=${{ secrets[SECRET_NAME] }}" >> $GITHUB_ENV
+          echo "ORG_SECRET=$SECRET_NAME" >> $GITHUB_ENV
 
     - name: Use dynamic environment variable
       run: echo "The secret is $ORG_SECRET"
