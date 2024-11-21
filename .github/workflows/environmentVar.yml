@@ -18,7 +18,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set dynamic environment variable
-      run: echo "ORG_SECRET=${{ secrets[inputs.environment + '_secret'] }}" >> $GITHUB_ENV
+      run: |
+          SECRET_NAME="${{ inputs.environment }}_secret"
+          echo "ORG_SECRET=${{ secrets[SECRET_NAME] }}" >> $GITHUB_ENV
 
     - name: Use dynamic environment variable
       run: echo "The secret is $ORG_SECRET"
