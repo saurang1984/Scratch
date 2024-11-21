@@ -37,5 +37,3 @@ jobs:
           echo "MATCH=false" >> $GITHUB_ENV
         fi
 
-    - name: Output comparison result
-      run: echo "Secret match result: $MATCH"
