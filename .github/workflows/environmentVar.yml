@@ -1,6 +1,12 @@
 name: Dynamic Environment Variables
 
-on: [push]
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'DEV'
 
 jobs:
   build:
